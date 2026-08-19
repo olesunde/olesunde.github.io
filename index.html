@@ -113,9 +113,7 @@
   /* ---------- seksjoner ---------- */
 
   .block {
-    display: grid;
-    grid-template-columns: var(--gutter) 1fr;
-    gap: 0 2.5rem;
+    display: block;
     padding-top: 2.25rem;
     margin-top: 2.25rem;
     border-top: 1px solid var(--rule);
@@ -129,8 +127,7 @@
     text-transform: uppercase;
     letter-spacing: .15em;
     color: var(--mute);
-    margin: .35rem 0 0;
-    align-self: start;
+    margin: 0 0 1.5rem 0;
   }
 
   .entry + .entry { margin-top: 1.75rem; }
@@ -237,11 +234,7 @@
   @media (max-width: 720px) {
     .sheet { padding: 3rem 1.5rem 4rem; }
     .sheet::before { display: none; }
-    .block {
-      grid-template-columns: 1fr;
-      gap: .9rem;
-    }
-    .block-label { margin-top: 0; }
+    .block-label { margin-bottom: 1rem; }
     .pairs { grid-template-columns: 1fr; gap: .15rem .75rem; }
     .pairs dd { margin-bottom: .6rem; }
     .toolbar { position: static; padding: 1.25rem 1.5rem 0; text-align: right; }
@@ -284,13 +277,12 @@
     .contact { font-size: 8.6pt; gap: .2rem .9rem; }
 
     .block {
-      gap: 0 1.75rem;
       padding-top: 1.15rem;
       margin-top: 1.15rem;
       break-inside: avoid;
       page-break-inside: avoid;
     }
-    .block-label { font-size: 7.6pt; }
+    .block-label { font-size: 7.6pt; margin-bottom: .9rem; }
     .entry { break-inside: avoid; page-break-inside: avoid; }
     .entry + .entry { margin-top: 1rem; }
     .entry-title { font-size: 10.6pt; }
