@@ -60,6 +60,22 @@
     padding: 5rem 2.5rem 6rem;
   }
 
+  /* signature: blåtimen som en loddrett gradient ned hele arket */
+  .sheet::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(2.5rem + var(--gutter) - 1.25rem);
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      var(--blue-deep) 0%,
+      var(--blue) 42%,
+      var(--blue-pale) 100%
+    );
+  }
+
   /* ---------- topp ---------- */
 
   .masthead { margin-bottom: 3.5rem; }
@@ -196,7 +212,7 @@
     z-index: 10;
   }
 
-  .print-btn {
+  .download-btn {
     font-family: var(--display);
     font-size: .75rem;
     font-weight: 600;
@@ -210,9 +226,11 @@
     padding: .55rem 1.05rem;
     cursor: pointer;
     transition: border-color .15s ease, color .15s ease;
+    text-decoration: none;
+    display: inline-block;
   }
-  .print-btn:hover { border-color: var(--blue); color: var(--blue-deep); }
-  .print-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+  .download-btn:hover { border-color: var(--blue); color: var(--blue-deep); }
+  .download-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 
   /* ---------- mobil ---------- */
 
@@ -286,7 +304,7 @@
 <body>
 
 <div class="toolbar">
-  <button class="print-btn" onclick="window.print()">Lagre som PDF</button>
+  <a href="#" class="download-btn" onclick="downloadPDF(); return false;">Last ned CV</a>
 </div>
 
 <main class="sheet">
@@ -447,6 +465,31 @@
   </section>
 
 </main>
+
+<script>
+  function downloadPDF() {
+    const element = document.querySelector('.sheet');
+    const opt = {
+      margin: 16,
+      filename: 'CV-Ole-Jakob.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { format: 'a4', orientation: 'portrait' }
+    };
+
+    // Create a temporary script to load html2pdf library if needed
+    if (typeof html2pdf === 'undefined') {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+      script.onload = () => {
+        html2pdf().set(opt).from(element).save();
+      };
+      document.head.appendChild(script);
+    } else {
+      html2pdf().set(opt).from(element).save();
+    }
+  }
+</script>
 
 </body>
 </html>
